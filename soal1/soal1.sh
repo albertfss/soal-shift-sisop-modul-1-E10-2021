@@ -21,12 +21,16 @@ do
 	errCount=$(echo $baris | cut -d ' ' -f 1)
 	echo "$err,$errCount" >> error_message.csv
 done
+cat error_message.csv
+echo
 
 #1.e
 echo "username,INFO,ERROR" > user_statistic.csv
 for i in $user_list
 do 
-	errorCount=$(echo grep "ERROR" syslog.log | grep -c $i)
-	infoCount=$(echo grep "INFO" syslog.log | grep -c $i)
+	errorCount=$(echo "$ERROR" | grep -E "(ERROR).*(\($i\))" | wc -l)
+	infoCount=$(echo "$INFO" | grep -E "(INFO).*(\($i\))" | wc -l)
 	echo "$i,$infoCount,$errorCount" >> user_statistic.csv
 done
+cat user_statistic.csv
+echo
