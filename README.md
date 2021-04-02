@@ -7,6 +7,10 @@ Kelompok E-10
 # Soal 1
 
 # Soal 2
+Steven, Manis, dan Clemong meminta bantuan untuk mencari beberapa kesimpulan dari data penjualan "Laporan-TokoShiShop.tsv"
+
+## a.
+Menampilkan 
 
 # Soal 3
 
