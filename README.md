@@ -16,7 +16,11 @@ Profit Percentage = (Profit/Cost Price)x100
 
 ## b.
 
+
 ## c.
+
+
+## d. 
 
 
 # Soal 3
