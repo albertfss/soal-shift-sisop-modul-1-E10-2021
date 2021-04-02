@@ -10,7 +10,14 @@ Kelompok E-10
 Steven, Manis, dan Clemong meminta bantuan untuk mencari beberapa kesimpulan dari data penjualan "Laporan-TokoShiShop.tsv"
 
 ## a.
-Menampilkan 
+Menampilkan **Row ID** dan **profit percentage terbesar** (jika hasil profit percentage terbesar lebih dari1, maka ROW ID yang paling besar akan muncul). 
+Rumus mendapatkan profit percentage dituliskan sebagai berikut
+Profit Percentage = (Profit/Cost Price)x100
+
+## b.
+
+## c.
+
 
 # Soal 3
 
