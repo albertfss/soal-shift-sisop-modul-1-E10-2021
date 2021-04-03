@@ -1,13 +1,15 @@
 #!/bin/bash
 
 #1.a
-ERROR=$(grep -E "ERROR" syslog.log)
-INFO=$(grep -E "INFO" syslog.log)
+ERROR=$(grep "ticky" syslog.log | cut -f6- -d' ' | grep -E "ERROR")
+INFO=$(grep "ticky" syslog.log | cut -f6- -d' ' | grep -E "INFO")
 
 error_count=$(grep -c "ERROR" syslog.log)
 info_count=$(grep -c "INFO" syslog.log)
 
-grep "ticky" syslog.log | cut -f6- -d' '
+grep "ticky" syslog.log | cut -f6- -d' ' | grep -E "ERROR"
+echo
+grep "ticky" syslog.log | cut -f6- -d' ' | grep -E "INFO"
 echo
 
 #1.b
