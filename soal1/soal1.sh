@@ -7,15 +7,29 @@ INFO=$(grep -E "INFO" syslog.log)
 error_count=$(grep -c "ERROR" syslog.log)
 info_count=$(grep -c "INFO" syslog.log)
 
+grep "ticky" syslog.log | cut -f6- -d' '
+echo
+
 #1.b
-error_list=$(echo "$ERROR" | grep -Po "(?<=ERROR )(.*)(?=\()" | sort | uniq -c | sort -nr)
+
+grep "ERROR" syslog.log | grep -Po "(?<=ERROR )(.*)(?=\()" | sort | uniq -c
+error_list=$(grep "ERROR" syslog.log | grep -Po "(?<=ERROR )(.*)(?=\()" | sort | uniq -c)
+##echo $error_list
+echo
 
 #1.c
-user_list=$(grep -Po "(?<=\()(.*)(?=\))" syslog.log | sort | uniq)
+user_list=$(grep -Po "(?<=\()(.*)(?=\))" syslog.log | sort -u)
+grep "ERROR" syslog.log | grep -Po "(?<=\()(.*)(?=\))" | sort | uniq -c
+echo
+grep "INFO" syslog.log | grep -Po "(?<=\()(.*)(?=\))" | sort | uniq -c
+echo
+
+#echo $user_list
 
 #1.d
+
 echo "Error,Count" > error_message.csv
-echo "$error_list" | while read baris
+echo "$error_list" | while read baris;
 do 
 	err=$(echo $baris | cut -d ' ' -f 2-)
 	errCount=$(echo $baris | cut -d ' ' -f 1)
