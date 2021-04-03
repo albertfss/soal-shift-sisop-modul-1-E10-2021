@@ -12,16 +12,15 @@ Mengumpulkan informasi dari log aplikasi yang terdapat pada file syslog.log. Inf
 
 ### Penyelesaian
 ```
-ERROR=$(grep -E "ERROR" syslog.log)
-INFO=$(grep -E "INFO" syslog.log)
+ERROR=$(grep "ticky" syslog.log | cut -f 6- -d' ' | grep -E "ERROR")
+INFO=$(grep "ticky" syslog.log | cut -f 6- -d' ' | grep -E "INFO")
 
-error_count=$(grep -c "ERROR" syslog.log)
-info_count=$(grep -c "INFO" syslog.log)
-
-grep "ticky" syslog.log | cut -f6- -d' '
+grep "ticky" syslog.log | cut -f 6- -d' ' | grep -E "ERROR"
+echo
+grep "ticky" syslog.log | cut -f 6- -d' ' | grep -E "INFO"
 echo
 ```
-Menggunakan grep untuk menyimpan semua line yang terdapat pesan "ERROR" dan "INFO" lalu dimasukkan ke dalam variabel mereka masing-masing. Variabel tersebut berfungsi untuk mempermudah untuk memasukkan informasi ke dalam file csv nanti. Lalu menggunakan grep untuk mengambil semua baris yang terdapat "ticky" lalu di cut dengan delimiter spasi dengan parameter f6 untuk mengambil bagian setelah delimiter saja agar.
+Menggunakan grep untuk mengambil baris yang terdapat pesan "ticky" lalu di cut dengan parameter f6 untuk mengambil kata ke 6 dan seterusnya dengan delimiter spasi lalu disimpan ke dalam variabel ERROR dan INFO. Dua variabel tersebut berfungsi untuk memudahkan saat memasukkan informasi ke dalam file csv pada bagian d nanti.
 
 ## b.
 Ryujin harus menampilkan semua pesan error yang muncul beserta jumlah kemunculannya.
