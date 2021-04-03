@@ -41,7 +41,7 @@ grep "INFO" syslog.log | grep -Po "(?<=\()(.*)(?=\))" | sort | uniq -c
 echo
 user_list=$(grep -Po "(?<=\()(.*)(?=\))" syslog.log | sort -u)
 ```
-Menggunakan grep untuk mengambil baris yang terdapat "ERROR" lalu di grep lagi dengan regular expression "(?<=\()(.* )(?=\))" untuk mengambil nama user yang terdapat setelah "(" dan sebelum ")", di sort lalu dengan menggunakan perintah uniq -c agar tidak muncul duplikat nama user yang sama. Pada pengambilan kemunculan user yang mendapat pesan "INFO" sama seperti pengambilan user dengan pesan "ERROR" sebelumnya. Lalu menggunakan grep dengan regular expression "(?<=\()(.* )(?=\))" untuk mengambil nama user dan disimpan ke dalam variabel user_list untuk mempermudah memasukkan informasi ke dalam csv nanti.
+Menggunakan grep untuk mengambil baris yang terdapat "ERROR" lalu di grep lagi dengan regular expression "(?<=\()(.* )(?=\))" untuk mengambil nama user yang terdapat setelah "(" dan sebelum ")", di sort lalu dengan menggunakan perintah uniq -c agar tidak muncul duplikat nama user yang sama. Pada pengambilan kemunculan user yang mendapat pesan "INFO" sama seperti pengambilan user dengan pesan "ERROR" sebelumnya. Lalu menggunakan grep dengan regular expression "(?<=\()(.* )(?=\))" untuk mengambil nama user dan disimpan ke dalam variabel user_list dan di sort dengan -u agar user dengan nama sama tidak terduplikat untuk mempermudah memasukkan informasi ke dalam csv nanti.
 
 ### d.
 Menuliskan informasi yang didapatkan pada poin b dituliskan ke dalam file error_message.csv dengan header Error,Count yang kemudian diikuti oleh daftar pesan error dan jumlah kemunculannya diurutkan berdasarkan jumlah kemunculan pesan error dari yang terbanyak.
