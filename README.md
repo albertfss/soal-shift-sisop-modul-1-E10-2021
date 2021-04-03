@@ -5,6 +5,75 @@ Kelompok E-10
 - Albert Filip Silalahi (05111940000116)
 
 # Soal 1
+Ryujin diberikan tugas untuk membuat laporan harian untuk aplikasi internal perusaahan, ticky. Terdapat 2 laporan yang harus dia buat, yaitu laporan daftar peringkat pesan error terbanyak yang dibuat oleh ticky dan laporan penggunaan user pada aplikasi ticky. Untuk membuat laporan tersebut, Ryujin harus melakukan beberapa hal berikut:
+
+## a.
+Mengumpulkan informasi dari log aplikasi yang terdapat pada file syslog.log. Informasi yang diperlukan antara lain: jenis log (ERROR/INFO), pesan log, dan username pada setiap baris lognya. 
+
+### Penyelesaian
+```
+ERROR=$(grep -E "ERROR" syslog.log)
+INFO=$(grep -E "INFO" syslog.log)
+
+error_count=$(grep -c "ERROR" syslog.log)
+info_count=$(grep -c "INFO" syslog.log)
+
+grep "ticky" syslog.log | cut -f6- -d' '
+echo
+```
+Menggunakan grep untuk menyimpan semua line yang terdapat pesan "ERROR" dan "INFO" lalu dimasukkan ke dalam variabel mereka masing-masing. Variabel tersebut berfungsi untuk mempermudah untuk memasukkan informasi ke dalam file csv nanti. Lalu menggunakan grep untuk mengambil semua baris yang terdapat "ticky" lalu di cut dengan delimiter spasi dengan parameter f6 untuk mengambil bagian setelah delimiter saja agar.
+
+## b.
+Ryujin harus menampilkan semua pesan error yang muncul beserta jumlah kemunculannya.
+
+### Penyelesaian
+```
+grep "ERROR" syslog.log | grep -Po "(?<=ERROR )(.*)(?=\()" | sort | uniq -c
+error_list=$(grep "ERROR" syslog.log | grep -Po "(?<=ERROR )(.*)(?=\()" | sort | uniq -c)
+```
+Menggunakan grep untuk mengambil baris yang terdapat "ERROR" lalu di grep lagi dengan regular expression "(?<=ERROR )(.* )(?=\()" untuk mengambil bagian setelah "ERROR" dan sebelum "(" yaitu pesan ERROR dari baris tersebut. Di sort dan menggunakan uniq -c untuk menghitung jumlah kemunculan masing-masing pesan ERROR. Lalu disimpan dalam variabel error_list untuk mempermudah untuk memasukkan informasi ke dalam file csv nanti.
+
+## c.
+Ryujin juga harus dapat menampilkan jumlah kemunculan log ERROR dan INFO untuk setiap user-nya.
+```
+grep "ERROR" syslog.log | grep -Po "(?<=\()(.*)(?=\))" | sort | uniq -c
+echo
+grep "INFO" syslog.log | grep -Po "(?<=\()(.*)(?=\))" | sort | uniq -c
+echo
+user_list=$(grep -Po "(?<=\()(.*)(?=\))" syslog.log | sort -u)
+```
+Menggunakan grep untuk mengambil baris yang terdapat "ERROR" lalu di grep lagi dengan regular expression "(?<=\()(.* )(?=\))" untuk mengambil nama user yang terdapat setelah "(" dan sebelum ")", di sort lalu dengan menggunakan perintah uniq -c agar tidak muncul duplikat nama user yang sama. Pada pengambilan kemunculan user yang mendapat pesan "INFO" sama seperti pengambilan user dengan pesan "ERROR" sebelumnya. Lalu menggunakan grep dengan regular expression "(?<=\()(.* )(?=\))" untuk mengambil nama user dan disimpan ke dalam variabel user_list untuk mempermudah memasukkan informasi ke dalam csv nanti.
+
+### d.
+Menuliskan informasi yang didapatkan pada poin b dituliskan ke dalam file error_message.csv dengan header Error,Count yang kemudian diikuti oleh daftar pesan error dan jumlah kemunculannya diurutkan berdasarkan jumlah kemunculan pesan error dari yang terbanyak.
+```
+echo "Error,Count" > error_message.csv
+echo "$error_list" | while read baris;
+do 
+	  err=$(echo $baris | cut -d ' ' -f 2-)
+	  errCount=$(echo $baris | cut -d ' ' -f 1)
+	  echo "$err,$errCount" >> error_message.csv
+done
+cat error_message.csv
+echo
+```
+Pertama "Error,Count" dimasukkan ke dalam file error_message.csv sebagai header dari file. Lalu membaca setiap baris yang terdapat dalam variabel error_list dengan menggunakan loop. Didalam loop err berfungsi untuk menyimpan jenis error dengan menggunakan cut dengan delimiter spasi dan parameter -f 2- untuk mengambil pesan errornya saja. Pada errCount digunakan cut dengan delimiter spasi dan dan parameter -f1 untuk megambil jumlah kemunculan errornya saja. Lalu err dan errCount dimasukkan dengan format "$err,$errCount" ke dalam file error_message.csv. Semua dilakukan secara berurutan.
+
+### e.
+Menuliskan informasi yang didapatkan pada poin c dituliskan ke dalam file user_statistic.csv dengan header Username,INFO,ERROR diurutkan berdasarkan username secara ascending.
+```
+echo "username,INFO,ERROR" > user_statistic.csv
+for i in $user_list
+do 
+	  errorCount=$(echo "$ERROR" | grep -E "(ERROR).*(\($i\))" | wc -l)
+	  infoCount=$(echo "$INFO" | grep -E "(INFO).*(\($i\))" | wc -l)
+	  echo "$i,$infoCount,$errorCount" >> user_statistic.csv
+done
+cat user_statistic.csv
+echo
+```
+Pertama "username,INFO,ERROR" dimasukkan ke dalam file user_statistic.csv sebagai header dari file. lalu dilakukan loop untuk setiap nama user yang terdapat didalam user_list.
+variabel ERROR ditampilkan lalu di grep untuk diambil ERROR yang terdapat nama user secara berurutan dengan loop lalu dihitung kemunculannya dan disimpan didalam variabel errorCount. infoCount menggunakan cara yang sama dengan errorCount. Lalu informasi dimasukkan secara berurutan dengan format "$i,$infoCount,$errorCount" ke dalam user_statistic.csv.
 
 # Soal 2
 Steven, Manis, dan Clemong meminta bantuan untuk mencari beberapa kesimpulan dari data penjualan "Laporan-TokoShiShop.tsv"
