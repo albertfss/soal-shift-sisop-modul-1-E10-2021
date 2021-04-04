@@ -13,10 +13,8 @@ grep "ticky" syslog.log | cut -f6- -d' ' | grep -E "INFO"
 echo
 
 #1.b
-
 grep "ERROR" syslog.log | grep -Po "(?<=ERROR )(.*)(?=\()" | sort | uniq -c | sort -nr
 error_list=$(grep "ERROR" syslog.log | grep -Po "(?<=ERROR )(.*)(?=\()" | sort | uniq -c | sort -nr)
-##echo $error_list
 echo
 
 #1.c
@@ -26,10 +24,7 @@ echo
 grep "INFO" syslog.log | grep -Po "(?<=\()(.*)(?=\))" | sort | uniq -c
 echo
 
-#echo $user_list
-
 #1.d
-
 echo "Error,Count" > error_message.csv
 echo "$error_list" | while read baris;
 do 
