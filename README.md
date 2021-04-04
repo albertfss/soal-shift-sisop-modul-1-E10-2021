@@ -127,10 +127,39 @@ Disini kita akan mencetak sesuai dengan permintaan soal, dan hasilnya disimpan d
 
 ## b.
 Clemong membutuhkan daftar **nama customer pada transaksi tahun 2017 di Albuquerque.**
+```
+export LC_ALL=C
+awk '
+BEGIN{FS="\t"}
+```
+sama seperti penjelasan di atas
+```
+{
+	OrderID=$2
+	City=$10
+	CustomerName=$7
+```
+Di sini, kita mendeklarasikan variabel OrderID yang akan mengambil data dari kolom kedua, City dari kolom ke 10 dan CustomerName dari kolom ketujuh.
+```
+	if (OrderID~"2017" && City == "Albuquerque")
+	{arrcustomer[CustomerName]++}
+}
+```
+kita akan mencari data dari OrderID yang mengandung angka 2017 dan juga City Albuquerque secara spesifik, jika data didapatkan maka nama Customer yang sesuai akan dimasukkan ke arrcustomer
+```
+END 
+{
+	print "\nDaftar nama customer di Albuequerque pada tahun 2017 antara lain:\n"
+	for (CustomerName in arrcustomer)
+	{print CustomerName}
+}' Laporan-TokoShiSop.tsv >> hasil.txt
+```
+Saat tiba di akhir proses, maka akan dicetak tulisan di atas dengan NamaCustomer. Hasil akan dilanjutkan penulisannya di file hasil.txt
 
 
 ## c.
 Clemong ingin meningkatkan penjualan pada segmen customer yang paling sedikit. Oleh karena itu, Clemong membutuhkan **segment customer** dan **jumlah transaksinya yang paling sedikit.**
+
 
 
 ## d. 
