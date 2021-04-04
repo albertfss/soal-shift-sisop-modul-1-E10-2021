@@ -93,14 +93,48 @@ Steven, Manis, dan Clemong meminta bantuan untuk mencari beberapa kesimpulan dar
 Menampilkan **Row ID** dan **profit percentage terbesar** (jika hasil profit percentage terbesar lebih dari1, maka ROW ID yang paling besar akan muncul). 
 Rumus mendapatkan profit percentage dituliskan sebagai berikut
 Profit Percentage = (Profit/Cost Price)x100
+```
+export LC_ALL=C
+```
+Bagian ini digunakan untuk lokalisasi bahasa, dimana data pada file yang mengandung titik akan dibaca sebagai koma (desimal).
+```
+awk '
+BEGIN{FS="\t"}
+```
+Kita menggunakan awk untuk dapat membaca data dari file. Begin digunakan untuk memulai pembacaan code. FS \t merupakan perintah untuk melakukan pembacaan data dengan menggunakan tab (per kolom) sebagai pemisahnya.
+```
+{
+	ProfitPersentase=$21/($18-$21)*100;
+```
+sesuai dengan rumus Profit Persentase yang telah diberikan pada soal. Kita mengambil data Profit dari kolom ke 21 dan sales dari kolom ke 18.
+```
+	if(max<=ProfitPersentase)
+	{
+		max=ProfitPersentase;
+		RowID=$1;
+	}
+}
+```
+Max sebelumnya tidak ada sehingga bernilai nol, saat max<=ProfitPersentase, maka nilai max adalah ProfitPersentase dan RowID akan diinput
+
+```
+END
+{
+	printf("Transaksi terakhir dengan profit percentage terbesar yaitu %d dengan persentase %d%% \n", RowID, max);
+}' Laporan-TokoShiSop.tsv >> hasil.txt
+```
+Disini kita akan mencetak sesuai dengan permintaan soal, dan hasilnya disimpan di file hasil.txt
 
 ## b.
+Clemong membutuhkan daftar **nama customer pada transaksi tahun 2017 di Albuquerque.**
 
 
 ## c.
+Clemong ingin meningkatkan penjualan pada segmen customer yang paling sedikit. Oleh karena itu, Clemong membutuhkan **segment customer** dan **jumlah transaksinya yang paling sedikit.**
 
 
 ## d. 
+Manis ingin mencari **wilayah bagian (region) yang memiliki total keuntungan (profit) paling sedikit** dan **total keuntungan wilayah tersebut.**
 
 
 # Soal 3
