@@ -1,13 +1,13 @@
 #!/bin/bash
 
 #1.a
+ERROR=$(grep "ticky" syslog.log | cut -f 6- -d' ' | grep -E "ERROR")
+INFO=$(grep "ticky" syslog.log | cut -f 6- -d' ' | grep -E "INFO")
+
 grep "ticky" syslog.log | cut -f 6- -d' ' | grep -E "ERROR"
 echo
 grep "ticky" syslog.log | cut -f 6- -d' ' | grep -E "INFO"
 echo
-
-ERROR=$(grep "ticky" syslog.log | cut -f 6- -d' ' | grep -E "ERROR")
-INFO=$(grep "ticky" syslog.log | cut -f 6- -d' ' | grep -E "INFO")
 
 #1.b
 grep "ERROR" syslog.log | grep -Po "(?<=ERROR )(.*)(?=\()" | sort | uniq -c | sort -nr
