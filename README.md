@@ -150,5 +150,7 @@ Untuk membuat file ter-zip dan ter-unzip, maka akan digunakan 2 crontab
 1. Pada jam 7 pagi di weekday `0 7 * * 1-5` akan menjalankan `soal3d.sh`
 2. Pada jam 6 sore di weekday `0 18 * * 1-5` akan menjalankan command berikut `unzip -P ``date +\%m\%d\%Y`` Koleksi.zip && rm Koleksi.zip`
 
+## Kesulitan
+
 - Terdapat kesulitan dalam mengerjakan 3c, yaitu ketika mencari jenis foto yang terakhir diunduh
 - Terdapat kekeliruan dalam mengerjakan 3d, yaitu ketika memilih folder untuk dizip
