@@ -27,13 +27,15 @@ Ryujin harus menampilkan semua pesan error yang muncul beserta jumlah kemunculan
 
 ### Penyelesaian
 ```
-grep "ERROR" syslog.log | grep -Po "(?<=ERROR )(.*)(?=\()" | sort | uniq -c
-error_list=$(grep "ERROR" syslog.log | grep -Po "(?<=ERROR )(.*)(?=\()" | sort | uniq -c)
+grep "ERROR" syslog.log | grep -Po "(?<=ERROR )(.*)(?=\()" | sort | uniq -c | sort -nr
+error_list=$(grep "ERROR" syslog.log | grep -Po "(?<=ERROR )(.*)(?=\()" | sort | uniq -c | sort -nr)
 ```
-Menggunakan grep untuk mengambil baris yang terdapat "ERROR" lalu di grep lagi dengan regular expression "(?<=ERROR )(.* )(?=\()" untuk mengambil bagian setelah "ERROR" dan sebelum "(" yaitu pesan ERROR dari baris tersebut. Di sort dan menggunakan uniq -c untuk menghitung jumlah kemunculan masing-masing pesan ERROR. Lalu disimpan dalam variabel error_list untuk mempermudah untuk memasukkan informasi ke dalam file csv nanti.
+Menggunakan grep untuk mengambil baris yang terdapat "ERROR" lalu di grep lagi dengan regular expression "(?<=ERROR )(.* )(?=\()" untuk mengambil bagian setelah "ERROR" dan sebelum "(" yaitu pesan ERROR dari baris tersebut. Di sort dan menggunakan uniq -c untuk menghitung jumlah kemunculan masing-masing pesan ERROR dan di sort berdasarkan jumlah kemunculan ERROR. Lalu disimpan dalam variabel error_list untuk mempermudah untuk memasukkan informasi ke dalam file csv nanti.
 
 ## c.
 Ryujin juga harus dapat menampilkan jumlah kemunculan log ERROR dan INFO untuk setiap user-nya.
+
+### Penyelesaian
 ```
 grep "ERROR" syslog.log | grep -Po "(?<=\()(.*)(?=\))" | sort | uniq -c
 echo
@@ -45,6 +47,8 @@ Menggunakan grep untuk mengambil baris yang terdapat "ERROR" lalu di grep lagi d
 
 ### d.
 Menuliskan informasi yang didapatkan pada poin b dituliskan ke dalam file error_message.csv dengan header Error,Count yang kemudian diikuti oleh daftar pesan error dan jumlah kemunculannya diurutkan berdasarkan jumlah kemunculan pesan error dari yang terbanyak.
+
+### Penyelesaian
 ```
 echo "Error,Count" > error_message.csv
 echo "$error_list" | while read baris;
@@ -60,6 +64,8 @@ Pertama "Error,Count" dimasukkan ke dalam file error_message.csv sebagai header 
 
 ### e.
 Menuliskan informasi yang didapatkan pada poin c dituliskan ke dalam file user_statistic.csv dengan header Username,INFO,ERROR diurutkan berdasarkan username secara ascending.
+
+### Penyelesaian
 ```
 echo "username,INFO,ERROR" > user_statistic.csv
 for i in $user_list
