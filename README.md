@@ -80,6 +80,12 @@ echo
 Pertama "username,INFO,ERROR" dimasukkan ke dalam file user_statistic.csv sebagai header dari file. lalu dilakukan loop untuk setiap nama user yang terdapat didalam user_list.
 variabel ERROR ditampilkan lalu di grep untuk diambil ERROR yang terdapat nama user secara berurutan dengan loop lalu dihitung kemunculannya dan disimpan didalam variabel errorCount. infoCount menggunakan cara yang sama dengan errorCount. Lalu informasi dimasukkan secara berurutan dengan format "$i,$infoCount,$errorCount" ke dalam user_statistic.csv.
 
+## Kesulitan
+
+- Terdapat kesulitan saat membuat Regular Expression untuk mengambil jenis pesan ERROR dan username.
+- Sebelum direvisi, pada nomor 1a data yang diambil tidak tersaring yaitu jenis log hingga usernamenya.
+- Sebelum direvisi, pada nomor 1c tidak menghitung jumlah kemunculan ERROR/INFO tiap user.
+
 # Soal 2
 Steven, Manis, dan Clemong meminta bantuan untuk mencari beberapa kesimpulan dari data penjualan "Laporan-TokoShiShop.tsv"
 
