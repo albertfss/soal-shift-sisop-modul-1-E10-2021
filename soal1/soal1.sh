@@ -14,8 +14,8 @@ echo
 
 #1.b
 
-grep "ERROR" syslog.log | grep -Po "(?<=ERROR )(.*)(?=\()" | sort | uniq -c
-error_list=$(grep "ERROR" syslog.log | grep -Po "(?<=ERROR )(.*)(?=\()" | sort | uniq -c)
+grep "ERROR" syslog.log | grep -Po "(?<=ERROR )(.*)(?=\()" | sort | uniq -c | sort -nr
+error_list=$(grep "ERROR" syslog.log | grep -Po "(?<=ERROR )(.*)(?=\()" | sort | uniq -c | sort -nr)
 ##echo $error_list
 echo
 
