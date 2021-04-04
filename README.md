@@ -159,8 +159,44 @@ Saat tiba di akhir proses, maka akan dicetak tulisan di atas dengan NamaCustomer
 
 ## c.
 Clemong ingin meningkatkan penjualan pada segmen customer yang paling sedikit. Oleh karena itu, Clemong membutuhkan **segment customer** dan **jumlah transaksinya yang paling sedikit.**
+```
+export LC_ALL=C
+awk '
+BEGIN {FS="\t"}
+```
+sama seperti poin a
+```
+{
+	if (NR>1)
+	{ 
+		segment[$8]++
+	}
+}
+```
+NR>1 (NumberofRecord) berarti data akan dibaca mulai baris kedua dikarenakan baris pertama merupakan judul dari tiap kolom. Sistem akan membaca data segment dari kolom kedelapan ddan menyimpan catatan transaksinya ke dalam array segment dan menjumlahkannya
+```
+END 
+{
+	MinSal=10000
+	for (temp  in segment)
+```
+Mendefenisikan nilai MinSal 10000 yang nantinya akan dibuat sebagai pembanding untuk mendapatkan nilai minimum selanjutnya akan dilakukan looping
+``
+	{
+		if (MinSal>segment[temp])
+		{
+			MinSal=segment[temp]
+			hasil=temp
+		}
+	}
+```
+kita membandingkan nilai apabila nilai minsal lebih besar dari segment maka kita perbaharui nilai MinSal dengan jumlah transaksi yang disimpan di segment[temp], dan hasil nya akan bernilai temp.
+```
+	printf("\nTipe segment customer yang penjualannya paling sedikit adalah %s dengan segment %.3f\n", hasil, MinSal)
+} ' Laporan-TokoShiSop.tsv >> hasil.txt
 
-
+```
+Sistem akan mencetak teks dengan segmen yang penjualannya paling sedikit
 
 ## d. 
 Manis ingin mencari **wilayah bagian (region) yang memiliki total keuntungan (profit) paling sedikit** dan **total keuntungan wilayah tersebut.**
