@@ -5,20 +5,21 @@ export LC_ALL=C
 awk '
 BEGIN{FS="\t"}
 {
-	ProfitPersentase=$21/($18-$21)*100
+	ProfitPersentase=$21/($18-$21)*100;
 
 	#mencari profit terbesar dan id terbawah
 	if(max<=ProfitPersentase)
 	{
-		max=ProfitPersentase
-		RowID=$1
+		max=ProfitPersentase;
+		RowID=$1;
 	}
 }
 
 END
 {
-	printf("Transaksi terakhir dengan profit percentage terbesar yaitu %d dengan persentase %d%% \n", RowID, max)
-} ' /home/albert/sisopE10/Laporan-TokoShisop.tsv >> hasil.txt
+	printf("Transaksi terakhir dengan profit percentage terbesar yaitu %d dengan persentase %d%% \n", RowID, max);
+}' Laporan-TokoShiSop.tsv >> hasil.txt
+
 
 #2b
 export LC_ALL=C
@@ -34,17 +35,17 @@ BEGIN{FS="\t"}
 
 END 
 {
-	print "\nDaftar nama customer di Albuequerque pada 		tahun 2017 antara lain:\n"
+	print "\nDaftar nama customer di Albuequerque pada tahun 2017 antara lain:\n"
 	for (CustomerName in arrcustomer)
 	{print CustomerName}
-}' /home/albert/sisopE10/Laporan-TokoShiSop.tsv >> hasil.txt
+}' Laporan-TokoShiSop.tsv >> hasil.txt
+
 
 #2c
 export LC_ALL=C
 awk '
 BEGIN {FS="\t"}
 {
-
 	if (NR>1)
 	{ 
 		segment[$8]++
@@ -56,7 +57,6 @@ END
 	MinSal=10000
 	for (temp  in segment)
 	{
-	 	#temp merupakan isiarray
 		if (MinSal>segment[temp])
 		{
 			MinSal=segment[temp]
@@ -64,7 +64,7 @@ END
 		}
 	}
 	printf("\nTipe segment customer yang penjualannya paling sedikit adalah %s dengan segment %.3f\n", hasil, MinSal)
-} ' /home/albert/sisopE10/Laporan-TokoShiSop.tsv >> hasil.txt
+} ' Laporan-TokoShiSop.tsv >> hasil.txt
 
 #2d
 export LC_ALL=C
@@ -73,10 +73,9 @@ BEGIN {FS="\t"}
 {
 	if (NR>1)
 	{ 
-	region [$13]+=profit[$21]
+	region[$13]+=profit[$21]
 	}
 }
-
 
 END 
 {
@@ -86,8 +85,8 @@ END
 		if (MinProfit > region[wilayah])
 		{
 			MinProfit = region[wilayah]
-			MinProfit = wilayah
+			namabagian = wilayah
 		}
   	}
-	printf ("Wilayah bagian (region) yang memiliki total keuntungan (profit)  yang paling sedikit adalah %s dengan total keuntungan %s" wilayah,region[wilayah]")
-} ' /home/albert/sisopE10/Laporan-TokoShiSop.tsv >> hasil.txt
+	printf ("Wilayah bagian (region) yang memiliki total keuntungan (profit)  yang paling sedikit adalah %s dengan total keuntungan %s" namabagian,region[wilayah]")
+} ' Laporan-TokoShiSop.tsv >> hasil.txt
