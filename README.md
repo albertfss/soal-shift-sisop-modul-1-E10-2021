@@ -181,7 +181,7 @@ END
 	for (temp  in segment)
 ```
 Mendefenisikan nilai MinSal 10000 yang nantinya akan dibuat sebagai pembanding untuk mendapatkan nilai minimum selanjutnya akan dilakukan looping
-``
+```
 	{
 		if (MinSal>segment[temp])
 		{
@@ -200,7 +200,45 @@ Sistem akan mencetak teks dengan segmen yang penjualannya paling sedikit
 
 ## d. 
 Manis ingin mencari **wilayah bagian (region) yang memiliki total keuntungan (profit) paling sedikit** dan **total keuntungan wilayah tersebut.**
+```
+export LC_ALL=C
+awk '
+BEGIN {FS="\t"}
+```
+sama seperti poin a
+```
+{
+	if (NR>1)
+	{ 
+	region[$13]+=profit[$21]
+	}
+}
+```
+pembacaan data dimulai dari baris kedua. Sistem akan menghitung profit yang terletak pada kolom ke-21 berdasarkan wilayahnya dan total profit tiap wilayah akan dijumlah dan disimpan di array region
+```
+END 
+{
+	MinProfit=10000
+	for(wilayah in region) 
+	{
+		if (MinProfit > region[wilayah])
+		{
+			MinProfit = region[wilayah]
+			namabagian = wilayah
+		}
+  	}
+```
+Kita mendefenisikan MinProfit dan mengisi nilai 10000 yang nantinya digunakan sebagai pembanding.
+Selanjutnya dilakukan looping untuk membandingkan nilai dari array region dengan MinProfit. Saat MinProfit lebih besar dari nilai dalam array region maka kita akan ubah nilai MinProfit menjadi nilai dalam array region 
+```
+	printf ("Wilayah bagian (region) yang memiliki total keuntungan (profit)  yang paling sedikit adalah %s dengan total keuntungan %s" namabagian,region[wilayah]")
+} ' Laporan-TokoShiSop.tsv >> hasil.txt
+```
+Setelah hasil didapat, akan ditampilkan output yang menunjukkan nama region dan total profit sebagai region yang memiliki profit paling sedikit
 
+##Kesulitan
+Kami belum bisa mengeluarkan output dari code tersebut, dikarenakan masih Error pada Syntax-nya. 
+Saya juga kesulitan karena masih harus membaca ulang command pada modul, case sensitive menjadi masalah selanjutnya karena terkadang secara tidak sadar penulisan huruf bisa kelupaan sehingga tidak match saat dibaca. Keterangan error dari sistem pun kurang tepat sehingga menjadi bingung letak kesalahan ada dimana
 
 # Soal 3
 
