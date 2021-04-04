@@ -236,7 +236,7 @@ Selanjutnya dilakukan looping untuk membandingkan nilai dari array region dengan
 ```
 Setelah hasil didapat, akan ditampilkan output yang menunjukkan nama region dan total profit sebagai region yang memiliki profit paling sedikit
 
-##Kesulitan
+## Kesulitan
 Kami belum bisa mengeluarkan output dari code tersebut, dikarenakan masih Error pada Syntax-nya. 
 Saya juga kesulitan karena masih harus membaca ulang command pada modul, case sensitive menjadi masalah selanjutnya karena terkadang secara tidak sadar penulisan huruf bisa kelupaan sehingga tidak match saat dibaca. Keterangan error dari sistem pun kurang tepat sehingga menjadi bingung letak kesalahan ada dimana
 
