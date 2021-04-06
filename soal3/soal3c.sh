@@ -29,12 +29,94 @@ function isDownloaded()
     ' Foto.log
 }
 
-lastDl=$(ls -d *_* | cut -d'_' -f2 | cut -c '10,9,8,7,5,4,2,1' | sort -n)
-echo "$lastDl"
+function mvNeko() 
+{
+    today=$(date +"%d-%m-%Y") 
+    mkdir Kucing_$today
+    mv *.jpg Kucing_$today
+    mv Foto.log Kucing_$today
+}
 
-for VAR in $lastDl
-do
-    i=0
-    echo "$VAR x $i"
-    i=$(($i + 1))
-done
+function mvUsagi()
+{
+    today=$(date +"%d-%m-%Y") 
+    mkdir Kelinci_$today
+    mv *.jpg Kelinci_$today
+    mv Foto.log Kelinci_$today
+}
+
+dir="/home/yanzkosim/SISOP/Praktikum/Modul1/soal-shift-sisop-modul-1-E10-2021/soal3"
+folder="`ls $dir`"
+
+awk '
+    BEGIN {
+        countNeko=0
+        countUsagi=0
+    }
+    /Kucing/ {
+        split($1, separator, "_");
+        split(separator[2], tanggal, "-");
+        countNeko++
+    }
+    /Kelinci/ {
+        split($1, separator, "_");
+        split(separator[2], tanggal, "-");
+        countUsagi++
+    }
+    END {
+        if ( countNeko == countUsagi ) {
+            exit 1
+        } else {
+            exit 2
+        }
+    }
+' <<< $folder
+
+animal=$?
+today=$(date +%d)
+if [ $animal == 1 ] 
+then
+    for((i=0;i<23;i++));
+    do
+        number=$(($save + 1))
+        if [ $number -lt 10 ]
+        then
+            number="0$number"
+        fi
+
+        wget -nv -O Koleksi_$number.jpg https://loremflickr.com/320/240/kitten 2>&1 | tee -a Foto.log
+
+        isDownloaded
+        check=$?
+
+        if [ $check == 1 ] 
+        then
+            rm Koleksi_$number
+        else
+            save=$(($save + 1))
+        fi
+    done
+    mvNeko
+else
+    for((i=0;i<23;i++));
+    do
+        number=$(($save + 1))
+        if [ $number -lt 10 ]
+        then
+            number="0$number"
+        fi
+
+        wget -nv -O Koleksi_$number.jpg https://loremflickr.com/320/240/bunny 2>&1 | tee -a Foto.log
+
+        isDownloaded
+        check=$?
+
+        if [ $check == 1 ] 
+        then
+            rm Koleksi_$number
+        else
+            save=$(($save + 1))
+        fi
+    done
+    mvUsagi
+fi

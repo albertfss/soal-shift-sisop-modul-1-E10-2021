@@ -1,2 +1,2 @@
-0 7 * * 1-5 cd SISOP/Praktikum/'Modul 1'/soal3/ && bash soal3d.sh
-0 18 * * 1-5 cd SISOP/Praktikum/'Modul 1'/soal3/ && unzip -P $(date +"%m%d%Y") Koleksi.zip
+0 7 * * 1-5 cd SISOP/Praktikum/Modul1/soal3/ && bash soal3d.sh
+0 18 * * 1-5 cd SISOP/Praktikum/Modul1/soal3/ && unzip -P `date +\%m\%d\%Y` Koleksi.zip && rm Koleksi.zip

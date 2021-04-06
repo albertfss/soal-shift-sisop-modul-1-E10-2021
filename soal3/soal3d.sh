@@ -1,6 +1,8 @@
 #!/bin/bash
 
 password=$(date +"%m%d%Y")
-echo $password
-zip -P $password -r Koleksi.zip K*_*
-rm -r K*_*
+temp=$(ls | grep -E "_|-|log|jpg")
+zip -r -P "$password" Koleksi.zip $temp
+rm -r *-*
+rm -r *.jpg
+rm Foto.log

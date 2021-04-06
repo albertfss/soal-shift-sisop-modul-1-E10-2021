@@ -1,1 +1,1 @@
-0 20 1/7,2/4 * * cd SISOP/Praktikum/'Modul 1'/soal3/ && bash soal3b.sh
+0 20 1-31/7,2-31/4 * * cd SISOP/Praktikum/Modul1/soal3/ && bash soal3b.sh
